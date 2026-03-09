@@ -1,4 +1,6 @@
-export const handleError = (error, res) => {
+
+
+export const handleError = (error, req, res, next) => {
      const statusCode = error.statusCode || 500
      const message = error.message || "Internal server error"
 
@@ -6,3 +8,4 @@ export const handleError = (error, res) => {
         message: message,
         })
 }
+

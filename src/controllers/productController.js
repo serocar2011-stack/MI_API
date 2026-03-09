@@ -3,7 +3,7 @@ import {
   getAllProductService,
   updateProductService,
   deleteProductService,
-  getProductByIdService
+  getProductByIdService,
 } from "../services/productService.js"
 
 import Category from "../models/categoryModel.js"

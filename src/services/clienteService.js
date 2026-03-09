@@ -1,6 +1,12 @@
+import { checkModelExist } from "../helpers/checkExist.js"
 import { Cliente } from "../models/clienteModel.js"
 
-export const createClienteService = (clienteData) => {
+
+export const createClienteService = async(clienteData) => {
+
+const { nombre, apellido } = clienteData
+
+
   return Cliente.create(clienteData)
 }
 
