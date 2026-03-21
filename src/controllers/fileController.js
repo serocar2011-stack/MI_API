@@ -1,6 +1,7 @@
 import {
   createFileService,
   getFilesByPrintJobService,
+  getAllFilesService,
   deleteFileService
 } from "../services/fileService.js"
 
@@ -22,6 +23,18 @@ export const getFilesByPrintJobController = async (req, res, next) => {
     const { printJobId } = req.params
 
     const files = await getFilesByPrintJobService(printJobId)
+
+    res.json(files)
+
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const getAllFilesController = async (req, res, next) => {
+  try {
+
+    const files = await getAllFilesService()
 
     res.json(files)
 

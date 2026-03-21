@@ -3,7 +3,7 @@ import { Router } from "express"
 import {
   createFileController,
   getFilesByPrintJobController,
-  deleteFileController
+  deleteFileController, getAllFilesController
 } from "../controllers/fileController.js"
 
 const router = Router()
@@ -12,6 +12,8 @@ const router = Router()
 router.post("/", createFileController)
 
 // traer archivos de un trabajo
+router.get("/", getAllFilesController)
+
 router.get("/printjob/:printJobId", getFilesByPrintJobController)
 
 // borrar archivo
