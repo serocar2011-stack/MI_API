@@ -1,4 +1,4 @@
-import { checkModelExist } from "../hepers/checkExist.js"
+import { checkModelExist } from "../helpers/checkExist.js"
 import Product from "../models/productModel.js"
 
 export const createProductService = async (productData) => {
