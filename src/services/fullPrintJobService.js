@@ -6,6 +6,8 @@ import { calculatePrintJobTotals } from "../utils/calculatePrintJob.js"
 export const createFullPrintJobService = async (data) => {
   const { cliente, files } = data
 
+  
+
   //  Validación
   if (!cliente || !files || files.length === 0) {
     throw new Error("Cliente y files son requeridos")
@@ -31,7 +33,6 @@ export const createFullPrintJobService = async (data) => {
   })
 
   // referenciar files al printJob
-  console.log(files)
 
   const filesWithJob = files.map(file => ({
     ...file,
@@ -46,25 +47,23 @@ export const createFullPrintJobService = async (data) => {
     .populate("cliente")
     .populate("files")
 
-  return result
+      return result
 }
 
 
 export const getAllPrintJobsService = async () => {
   return await PrintJob.find()
     .populate("cliente")
-
-
     .populate("files")
 }
 
 
 export const getPrintJobByIdService = async (id) => {
 
+  const files = await File.find({ printJob: id })
+
   return await PrintJob.findById(id)
     .populate("cliente")
-
-    
-    // ESTE POPULATE NO FUNCIONA!!!!!!
     .populate("files")
 }
+

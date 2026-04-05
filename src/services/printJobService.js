@@ -13,8 +13,10 @@ export const getAllPrintJobsService = () => {
   return PrintJob.find().populate("cliente").populate("files")
 }
 
-export const getPrintJobByIdService = (id) => {
-  return PrintJob.findById(id).populate("cliente")
+export const getPrintJobByIdService = async (id) => {
+  return await PrintJob.findById(id)
+    .populate("cliente")
+    .populate("files")
 }
 
 export const updatePrintJobService = (id, data) => {

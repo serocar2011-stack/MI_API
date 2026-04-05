@@ -30,20 +30,9 @@ export const getAllFullPrintJobsController = async (req, res) => {
 
 export const getFullPrintJobByIdController = async (req, res) => {
   try {
-    const { id } = req.params
-
-    const result = await getPrintJobByIdService(id)
-
-    if (!result) {
-      return res.status(404).json({
-        message: "PrintJob no encontrado"
-      })
-    }
-
-    res.status(200).json(result)
+    const job = await getPrintJobByIdService(req.params.id)
+    res.json(job)
   } catch (error) {
-    res.status(500).json({
-      message: error.message
-    })
+    res.status(500).json({ error: error.message })
   }
 }
