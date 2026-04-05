@@ -38,6 +38,7 @@ PRODUCTO
 
 PEDIDO DE IMPRESION COMPLETO
 
+Endpoint: http://localhost:3000/api/fullprintjobs/
 
 
 {
@@ -129,6 +130,7 @@ PEDIDO DE IMPRESION COMPLETO
 
 USUARIOS
 
+EndPoint: http://localhost:3000/api/user
 
   {
     "name": "juan",
@@ -208,3 +210,14 @@ USUARIOS
   }
 
 *****************************************************************
+
+LOGIN
+
+EndPoint: http://localhost:3000/api/user/login
+
+
+ejemplo:
+{
+    "email": "maria.gomez2@gmail.com",
+    "password": "Maria123"
+  }

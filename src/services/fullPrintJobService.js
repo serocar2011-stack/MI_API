@@ -22,7 +22,7 @@ export const createFullPrintJobService = async (data) => {
   // Calculo totales usando utils
   const { totalPages, totalPrice } = calculatePrintJobTotals(files)
 
-  // 4. Crear PrintJob
+  // Crear PrintJob
   const newPrintJob = await PrintJob.create({
     cliente: existingCliente._id,
     totalPages,
@@ -30,16 +30,18 @@ export const createFullPrintJobService = async (data) => {
     status: "pending"
   })
 
-  // 5. Preparar files con referencia al printJob
+  // referenciar files al printJob
+  console.log(files)
+
   const filesWithJob = files.map(file => ({
     ...file,
     printJob: newPrintJob._id
   }))
 
-  // 6. Insertar files
+  // Insertar archivos
   await File.insertMany(filesWithJob)
 
-  // 7. Traer resultado final populado
+  // Traer resultado final
   const result = await PrintJob.findById(newPrintJob._id)
     .populate("cliente")
     .populate("files")
@@ -51,6 +53,8 @@ export const createFullPrintJobService = async (data) => {
 export const getAllPrintJobsService = async () => {
   return await PrintJob.find()
     .populate("cliente")
+
+
     .populate("files")
 }
 
@@ -59,5 +63,8 @@ export const getPrintJobByIdService = async (id) => {
 
   return await PrintJob.findById(id)
     .populate("cliente")
+
+    
+    // ESTE POPULATE NO FUNCIONA!!!!!!
     .populate("files")
 }
