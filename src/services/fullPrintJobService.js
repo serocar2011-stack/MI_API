@@ -1,7 +1,7 @@
 import { Cliente } from "../models/clienteModel.js"
 import { PrintJob } from "../models/printJobModel.js"
 import { File } from "../models/fileModel.js"
-import { calculatePrintJobTotals } from "../utils/calculatePrintJob.js"
+import { calculatePrintJobTotals } from "../utils/calculatePrintJobTotal.js"
 
 export const createFullPrintJobService = async (data) => {
   const { cliente, files } = data
@@ -67,3 +67,19 @@ export const getPrintJobByIdService = async (id) => {
     .populate("files")
 }
 
+export const deleteFullPrintJobService = async (id) => {
+  // 1. Verificar que exista el printJob
+  const printJob = await PrintJob.findById(id)
+
+  if (!printJob) {
+    throw new Error("PrintJob no encontrado")
+  }
+
+  // 2. Eliminar todos los files asociados
+  await File.deleteMany({ printJob: id })
+
+  // 3. Eliminar el printJob
+  await PrintJob.findByIdAndDelete(id)
+
+  return { message: "PrintJob y sus archivos eliminados correctamente" }
+}

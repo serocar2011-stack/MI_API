@@ -30,7 +30,7 @@ export const deletePrintJobService = (id) => {
   return PrintJob.findByIdAndDelete(id)
 }
 
-// ---------------- FULL SERVICE 🔥 ----------------
+// Pedido completo
 
 export const createFullPrintJobService = async (data) => {
   const { cliente, files } = data

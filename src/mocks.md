@@ -1,28 +1,32 @@
-CLIENTES
-[
-  {
-    "_id": "69a09ccc87d12e1fa865ba25",
-    "nombre": "oscar",
-    "apellido": "carrasco",
-    "telefono": "+54 3442 555123",
-    "email": "oscarro@gmail.com",
-    "createdAt": "2026-02-26T19:19:40.329Z",
-    "updatedAt": "2026-02-26T19:20:22.200Z"
-  },
-  {
-    "_id": "69a4bdb6f0c7f3c40ebd6854",
-    "nombre": "roberto",
-    "apellido": "almeida",
-    "telefono": "+54 3442 456279",
-    "email": "ralme@gmail.com",
-    "createdAt": "2026-03-01T22:29:10.800Z",
-    "updatedAt": "2026-03-01T22:29:10.800Z"
-  }
-]
+Descripción:
+El sistema posee dos secciones:
+
+LIBRERIA: 
+- Se pueden agregar, eliminar y traer categorias
+- Se pueden agregar, modificar, traer y eleminar productos (CRUD completo)
+
+PEDIDOS DE IMPRESION:
+- Se crean pedidos de impresion los cuales tienen un usuario conectado por medio de id con los archivos del pedido solicitado
+- El pedido calcula el precio total automaticamente segun los tipos de archivos: simple/doble faz - b&n/color
+- Se pueden realizar pedidos completos, se pueden traer pedidos completo por id, se pueden traer archivos por id, se pueden borrar pedidos completos.
+
+
 
 ******************************************************************************
+CATEGORIAS
 
-PRODUCTO
+Endpoint: http://localhost:3000/api/categories/
+{
+  "name":"cuadernos"
+}
+
+
+
+******************************************************************************
+PRODUCTO (1RO SE DEBEN CREAR CATEGORIAS PARA PODER AGREGAR PRODUCTOS)
+
+Endpoint: http://localhost:3000/api/products/
+
 {
   "name": "cuaderno universitario rayado",
   "price": 5.50,
@@ -36,7 +40,7 @@ PRODUCTO
 
 *********************************************************************************
 
-PEDIDO DE IMPRESION COMPLETO
+PEDIDO DE IMPRESION COMPLETO (CLIENTE + ARCHIVOS)
 
 Endpoint: http://localhost:3000/api/fullprintjobs/
 
@@ -69,7 +73,7 @@ Endpoint: http://localhost:3000/api/fullprintjobs/
   ]
 }
 
-----------------------------------------------------------------------
+*********************************************************************************
 
 {
   "cliente": {
@@ -89,7 +93,7 @@ Endpoint: http://localhost:3000/api/fullprintjobs/
   ]
 }
 
----------------------------------------------------------------------
+*********************************************************************************
 
 {
   "cliente": {
@@ -139,7 +143,7 @@ EndPoint: http://localhost:3000/api/user
     "password": "Password1"
   },
 
---------------------------------------------------------------
+*********************************************************************************
 
   {
     "name": "maria",
@@ -148,9 +152,7 @@ EndPoint: http://localhost:3000/api/user
     "password": "Maria123"
   },
 
-
---------------------------------------------------------------
-
+*********************************************************************************
 
   {
     "name": "lucas",
@@ -159,8 +161,7 @@ EndPoint: http://localhost:3000/api/user
     "password": "Lucas123"
   },
 
---------------------------------------------------------------
-
+*********************************************************************************
 
   {
     "name": "sofia",
@@ -169,7 +170,7 @@ EndPoint: http://localhost:3000/api/user
     "password": "Sofia123"
   },
 
---------------------------------------------------------------
+*********************************************************************************
 
   {
     "name": "martin",
@@ -179,7 +180,7 @@ EndPoint: http://localhost:3000/api/user
   },
 
 
---------------------------------------------------------------
+*********************************************************************************
 
   {
     "name": "valentina",
@@ -189,7 +190,7 @@ EndPoint: http://localhost:3000/api/user
   },
 
 
---------------------------------------------------------------
+*********************************************************************************
 
   {
     "name": "tomas",
@@ -199,7 +200,7 @@ EndPoint: http://localhost:3000/api/user
   },
 
 
-  --------------------------------------------------------------
+ *********************************************************************************
 
   
   {
@@ -209,7 +210,7 @@ EndPoint: http://localhost:3000/api/user
     "password": "Camila123"
   }
 
-*****************************************************************
+*********************************************************************************
 
 LOGIN
 

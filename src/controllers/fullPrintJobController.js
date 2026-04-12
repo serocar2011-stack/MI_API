@@ -1,5 +1,6 @@
 
 import { createFullPrintJobService, getPrintJobByIdService } from "../services/printJobService.js"
+import { deleteFullPrintJobService } from "../services/fullPrintJobService.js"
 
 export const createFullPrintJobController = async (req, res) => {
   try {
@@ -34,5 +35,17 @@ export const getFullPrintJobByIdController = async (req, res) => {
     res.json(job)
   } catch (error) {
     res.status(500).json({ error: error.message })
+  }
+}
+
+export const deleteFullPrintJobController = async (req, res) => {
+  try {
+    const result = await deleteFullPrintJobService(req.params.id)
+
+    res.status(200).json(result)
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
+    })
   }
 }
