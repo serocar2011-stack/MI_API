@@ -16,6 +16,7 @@ PEDIDOS DE IMPRESION:
 CATEGORIAS
 
 Endpoint: http://localhost:3000/api/categories/
+
 {
   "name":"cuadernos"
 }
@@ -215,6 +216,16 @@ EndPoint: http://localhost:3000/api/user
 LOGIN
 
 EndPoint: http://localhost:3000/api/user/login
+
+
+{
+    "email": "admin@printsystem.com",
+    "password": "Admin123"
+  }
+
+
+
+
 
 
 ejemplo:
