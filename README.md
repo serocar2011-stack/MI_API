@@ -45,8 +45,9 @@ Este proyecto es una API REST robusta desarrollada con **Node.js** y **Express**
    ```
 
 2. **Instalar dependencias:**
+   Ejecuta el siguiente comando para instalar todas las librerías necesarias:
    ```bash
-   npm install
+   npm install express mongoose bcryptjs jsonwebtoken dotenv
    ```
 
 3. **Configurar variables de entorno:**
@@ -58,8 +59,7 @@ Este proyecto es una API REST robusta desarrollada con **Node.js** y **Express**
    ```
 
 4. **Iniciar el servidor:**
-   
-   
+    
  - Modo desarrollo: `npm run dev`
 
  - Modo producción: `npm start`
@@ -71,32 +71,68 @@ Este proyecto es una API REST robusta desarrollada con **Node.js** y **Express**
 
 ```text
 mi_api/
+├── scripts/
+│   └── createAdmin.js      # Script para inicialización de administrador
 ├── src/
-│   ├── config/      # Configuración de DB y variables
-│   ├── controllers/ # Lógica de los endpoints
-│   ├── models/      # Modelos de Mongoose (Schemas)
-│   ├── routes/      # Definición de rutas Express
-│   ├── middlewares/ # Validaciones y seguridad (JWT)
-│   ├── utils/       # Funciones auxiliares y manejo de errores
-│   └── services/    # Lógica de negocio adicional
-├── index.js         # Punto de entrada de la aplicación
-└── package.json     # Dependencias y scripts
+│   ├── config/             # Configuración de DB y variables de entorno
+│   │   ├── config.js
+│   │   └── db.js
+│   ├── controllers/        # Lógica de los endpoints (manejadores de peticiones)
+│   │   ├── categoryController.js
+│   │   ├── clienteController.js
+│   │   ├── fileController.js
+│   │   ├── fullPrintJobController.js
+│   │   ├── printJobController.js
+│   │   ├── productController.js
+│   │   └── userController.js
+│   ├── helpers/            # Funciones de ayuda reutilizables
+│   │   └── checkExist.js
+│   ├── middlewares/        # Middlewares de Express (validaciones, JWT)
+│   │   └── verifyTokenMiddleware.js
+│   ├── models/             # Modelos de datos (Mongoose Schemas)
+│   │   ├── categoryModel.js
+│   │   ├── clienteModel.js
+│   │   ├── fileModel.js
+│   │   ├── printJobModel.js
+│   │   ├── productModel.js
+│   │   └── userModel.js
+│   ├── routes/             # Definición de rutas y endpoints
+│   │   ├── categoryRouter.js
+│   │   ├── clienteRoutes.js
+│   │   ├── fileRoutes.js
+│   │   ├── fullPrintJobRoutes.js
+│   │   ├── printJobRoutes.js
+│   │   ├── productRoutes.js
+│   │   └── userRoutes.js
+│   ├── services/           # Lógica de negocio y comunicación con la DB
+│   │   ├── categoryService.js
+│   │   ├── clienteService.js
+│   │   ├── fileService.js
+│   │   ├── fullPrintJobService.js
+│   │   ├── printJobService.js
+│   │   ├── productService.js
+│   │   └── userService.js
+│   └── utils/              # Utilidades varias (errores, cálculos)
+│       ├── calculatePrintJobTotal.js
+│       ├── errorHandler.js
+│       └── verifyToken.js
+├── .env                    # Variables de entorno (No incluido en Git)
+├── .env.example            # Ejemplo de variables de entorno
+├── .gitignore              # Archivos ignorados por Git
+├── index.js                # Punto de entrada de la aplicación
+├── package-lock.json       # Historial de versiones de dependencias
+├── package.json            # Scripts y dependencias del proyecto
+└── README.md               # Documentación del proyecto
 ```
 
 
----
-
-
-## Ejemplos de Peticiones (Mocks)
-
-Para facilitar las pruebas de la API, se han creado ejemplos de peticiones en formato JSON.
 
 ## Inicialización y creación de usuario administrador
 
-⚠️ Para poder iniciar la administración de la aplicación es necesaria la creación de un usuario administrador mediante la ejecución del siguiente comando:
+⚠️ Para poder iniciar la administración de la aplicación es necesaria la creación de un usuario administrador mediante la ejecución del siguiente comando **dentro de la carpeta scripts:**
 
 ```bash
-npm run create-admin
+node createAdmin.js
 ```
 
 Este comando permitirá crear un usuario administrador para acceder a las funcionalidades de la API.
@@ -127,7 +163,13 @@ Para iniciar sesion como administrador se debe enviar un correo y una contraseñ
     "password": "[PASSWORD]"
 }
 ```
-En la respuesta se recibira un token JWT que deberá ser utilizado para las peticiones que requieran autenticación como administrador.
+En la respuesta se recibira un token JWT que deberá ser utilizado para las peticiones que requieran autenticación como administrador. Este token se debera colocar en el header Authorization.
+
+---
+## Ejemplos de Peticiones (Mocks)
+
+Para facilitar las pruebas de la API, se han creado ejemplos de peticiones en formato JSON.
+
 
 
 ## Registro de Usuarios
@@ -160,9 +202,35 @@ Respuesta exitosa (`201 Created`):
 }
 ```
 
+**Endpoint:** `GET /api/user`
+> ⚠️ Requiere autenticación.
+Trae el listado de todos los usuarios registrados.
+
+**Endpoint:** `PUT /api/user/:id`
+> ⚠️ Requiere autenticación.
+Actualiza los datos de un usuario por su ID.
+
+**Endpoint:** `DELETE /api/user/:id`
+> ⚠️ Requiere autenticación.
+Elimina un usuario por su ID.
+
 > ℹ️ Reglas de contraseña: debe contener al menos un número, una mayúscula y tener entre 6 y 16 caracteres.
 
 ---
+
+## Login Users
+De igual modo que con el login de administrador, se debe enviar un correo y una contraseña al siguiente endpoint:
+
+**Endpoint:** POST /api/user/login
+
+
+```json
+{
+    "email": "[EMAIL_ADDRESS]",
+    "password": "[PASSWORD]"
+}
+```
+
 
 ## Categorías
 
@@ -185,6 +253,14 @@ Respuesta exitosa (`201 Created`):
   "updatedAt": "2026-04-22T11:00:00.000Z"
 }
 ```
+
+**Endpoint:** `GET /api/categories`
+> ⚠️ Requiere autenticación.
+Trae el listado de todas las categorías.
+
+**Endpoint:** `DELETE /api/categories/:id`
+> ⚠️ Requiere autenticación.
+Elimina una categoría por su ID.
 
 ---
 
@@ -228,6 +304,20 @@ Respuesta exitosa (`201 Created`):
   "updatedAt": "2026-04-22T11:00:00.000Z"
 }
 ```
+
+**Endpoint:** `GET /api/products`
+Trae el listado de todos los productos. Incluye datos de la categoría.
+
+**Endpoint:** `GET /api/products/:id`
+Trae un producto específico por su ID.
+
+**Endpoint:** `PUT /api/products/:id`
+> ⚠️ Requiere autenticación.
+Actualiza los datos de un producto. Se puede actualizar la categoría enviando el nombre de la misma.
+
+**Endpoint:** `DELETE /api/products/:id`
+> ⚠️ Requiere autenticación.
+Elimina un producto por su ID.
 
 ---
 
@@ -304,4 +394,37 @@ Respuesta exitosa (`201 Created`):
   "updatedAt": "2026-04-22T11:00:00.000Z"
 }
 ```
+
+**Endpoint:** `GET /api/fullprintjobs`
+> ⚠️ Requiere autenticación.
+Trae todos los pedidos de impresión completos.
+
+**Endpoint:** `GET /api/fullprintjobs/:id`
+> ⚠️ Requiere autenticación.
+Trae un pedido de impresión específico por su ID.
+
+**Endpoint:** `DELETE /api/fullprintjobs/:id`
+> ⚠️ Requiere autenticación.
+Elimina un pedido de impresión.
+
+---
+
+## Clientes
+
+> ℹ️ Gestión de clientes registrados en el sistema.
+
+**Endpoint:** `GET /api/clientes`
+> ⚠️ Requiere autenticación.
+
+**Endpoint:** `POST /api/clientes`
+> ℹ️ Endpoint público, no requiere autenticación, se crea con pedido de impresión completo.
+Crea un nuevo cliente.
+
+**Endpoint:** `PATCH /api/clientes/:id`
+> ⚠️ Requiere autenticación.
+Actualización parcial de los datos de un cliente.
+
+**Endpoint:** `DELETE /api/clientes/:id`
+> ⚠️ Requiere autenticación.
+Elimina un cliente.
 
